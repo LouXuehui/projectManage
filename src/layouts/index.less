@@ -1,0 +1,39 @@
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.left {
+  width: 240px;
+  height: 100%;
+  background-color: #ccc;
+
+  .logo {
+    height: 60px;
+    background: red;
+  }
+
+  :global {
+    .ant-menu {
+      width: 100%;
+      height: calc(~'100% - 60px')
+    }
+  }
+}
+
+.right {
+  width: calc(~'100% - 240px');
+  height: 100%;
+}
+
+.top {
+  width: 100%;
+  height: 60px;
+  background-color: #ccc;
+}
+
+.content {
+  width: 100%;
+  height: calc(~'100% - 60px');
+}
