@@ -10,15 +10,46 @@ const { RangePicker } = DatePicker;
 class Index extends Component {
   constructor(props) {
     super(props);
-    this.setate = {
+    this.state = {
       startDate: '', //开始日期
       endDate: '', //结束日期
       searchValue: '', //筛选值
       type: '', //筛选条件
+      dataSource: [
+        { id: '1', approvalYear: '2020', name: '哈哈哈' },
+        { id: '2', approvalYear: '2020', name: '哈哈哈' },
+        { id: '3', approvalYear: '2020', name: '哈哈哈' },
+        { id: '4', approvalYear: '2020', name: '哈哈哈' },
+        { id: '5', approvalYear: '2020', name: '哈哈哈' },
+        { id: '6', approvalYear: '2020', name: '哈哈哈' },
+        { id: '7', approvalYear: '2020', name: '哈哈哈' },
+        { id: '8', approvalYear: '2020', name: '哈哈哈' },
+        { id: '11', approvalYear: '2020', name: '哈哈哈' },
+        { id: '21', approvalYear: '2020', name: '哈哈哈' },
+        { id: '31', approvalYear: '2020', name: '哈哈哈' },
+        { id: '41', approvalYear: '2020', name: '哈哈哈' },
+        { id: '51', approvalYear: '2020', name: '哈哈哈' },
+        { id: '61', approvalYear: '2020', name: '哈哈哈' },
+        { id: '71', approvalYear: '2020', name: '哈哈哈' },
+        { id: '81', approvalYear: '2020', name: '哈哈哈' },
+      ],
     };
   }
 
+  //刷新
+  refresh() {
+    const { startDate, endDate, searchValue, type } = this.state;
+    console.log('刷新', startDate, endDate, searchValue, type);
+  }
+
+  //排序
+  sort() {
+    const { startDate, endDate, searchValue, type } = this.state;
+    console.log('排序', startDate, endDate, searchValue, type);
+  }
+
   render() {
+    const { dataSource } = this.state;
     const columns = [
       {
         key: 'id',
@@ -94,8 +125,6 @@ class Index extends Component {
       },
     ];
 
-    const dataSource = [{ id: '111', approvalYear: '2020', name: '哈哈哈' }];
-
     return (
       <div className={styles.comprehensive}>
         <div className={styles.top}>
@@ -123,12 +152,14 @@ class Index extends Component {
             </Select>
           </div>
           <div className={styles.btn}>
-            <Button>刷新</Button>
-            <Button type="primary">排序</Button>
+            <Button onClick={() => this.refresh()}>刷新</Button>
+            <Button type="primary" onClick={() => this.sort()}>
+              排序
+            </Button>
           </div>
         </div>
         <div className={styles.project}>
-          <Table columns={columns} dataSource={dataSource} scroll={{ x: 1300 }}/>
+          <Table columns={columns} dataSource={dataSource} scroll={{ x: 1300 }} />
         </div>
         <div className={styles.projectDetail}></div>
       </div>
