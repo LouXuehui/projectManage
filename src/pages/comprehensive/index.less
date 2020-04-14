@@ -1,0 +1,34 @@
+.comprehensive {
+  padding: 20px;
+
+  .top {
+    width: 100%;
+    height: 32px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .tool {
+      width: calc(~'100% - 200px');
+      display: flex;
+
+      :global {
+        .ant-calendar-picker {
+          width: 220px;
+          margin: 0 10px;
+        }
+      }
+    }
+
+    .btn {
+      width: 200px;
+      :global {
+        .ant-btn {
+          width: 90px;
+          margin-left: 10px;
+          border-radius: 18px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+module.exports.routers =  [
+    {
+      path: '/',
+      component: '../layouts/index',
+      routes: [
+        { path: '/', component: '../pages/comprehensive/index' },
+        { path: '/approval', component: '../pages/approval/index' },
+        { path: '/payment', component: '../pages/payment/index' },
+        { path: '/comprehensive', component: '../pages/comprehensive/index'},
+      ],
+    },
+  ]
