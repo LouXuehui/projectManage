@@ -2,6 +2,9 @@
 @remarkColor: #a9a9a9;
 
 :global {
+  *{
+    font-size: 12px;
+  }
   //全局样式
   h1, h2, h3, h4, h5, h6, form, div, p, i, img, ul, li, ol, table, tr, td, th, fieldset, label, legend, button, input {
     margin: 0;
@@ -366,3 +369,44 @@
   }
 }
 
+// 操作列编辑删除
+.operation {
+  display: inline-flex;
+  align-items: center;
+  span:hover{
+    text-decoration: underline;
+  }
+
+  .defaultTheme{
+    color: @primary-color;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .blue {
+    cursor: pointer;
+    color: #11BFFF;
+  }
+
+  .edit, .modify {
+    color: @primary-color;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .edit:after {
+    content: "";
+    width: 1px;
+    height: 12px;
+    margin: 0 10px;
+    display: inline-flex;
+    background-color: @border-color;
+  }
+
+  .delete {
+    cursor: pointer;
+    color: #fe6b6d;
+  }
+}

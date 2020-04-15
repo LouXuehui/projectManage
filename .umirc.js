@@ -26,7 +26,7 @@ export default {
         components: path.resolve(__dirname, './src/components'),
     },
     theme: {
-        "@primary-color": "#0085E8",
+        "@primary-color": "#008DFF",
         "@border-color-base": "hsv(0, 0, 85%)",
         "@main-color": "#2663bc",
         "@border-radius-base": "4px",
@@ -41,16 +41,12 @@ export default {
         "@grey-color": "#999",
         "@main-font-color": "#333"
     },
-    // proxy: {
-    //     '/': {
-    //         target: 'http://localhost:8081',
-    //         bypass: function (req, res, proxyOptions) {
-    //             let path = req.path
-    //             if (path.indexOf('umi') !== -1 || path.indexOf('chunk') !== -1 || path.indexOf('async') !== -1) {
-    //                 return path
-    //             }
-    //         }
-    //     }
-    // },
+    proxy: {
+        '/api/': {
+            target: 'http://49.234.46.56:8066',
+            changeOrigin: true,
+            pathRewrite: { '^/api': '' },
+        },
+    },
     routes:routers
 };

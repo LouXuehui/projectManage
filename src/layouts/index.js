@@ -1,5 +1,5 @@
-import { UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Menu, Avatar, Dropdown } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import styles from './index.less';
 import { menuList } from '../common/menu.js';
@@ -7,7 +7,7 @@ import router from 'umi/router';
 
 const { SubMenu } = Menu;
 class Index extends Component {
-  handleClick = (e) => {
+  handleClick = e => {
     router.push({
       pathname: `/${e.key}`,
       query: {},
@@ -24,10 +24,10 @@ class Index extends Component {
             defaultSelectedKeys={['projects']}
             defaultOpenKeys={['approval']}
             mode="vertical"
-            style={{ width: 240 }}
+            style={{ width: 80 }}
             theme="dark"
           >
-            {menuList.map((menu) => {
+            {menuList.map(menu => {
               let children = menu.children;
               if (children) {
                 return (
@@ -35,15 +35,13 @@ class Index extends Component {
                     key={menu.id}
                     title={
                       <span>
-                        <MailOutlined />
                         <span>{menu.name}</span>
                       </span>
                     }
                   >
-                    {children.map((child) => {
+                    {children.map(child => {
                       return (
                         <Menu.Item key={child.id}>
-                          <UserOutlined />
                           <span className="nav-text">{child.name}</span>
                         </Menu.Item>
                       );
@@ -53,7 +51,6 @@ class Index extends Component {
               } else {
                 return (
                   <Menu.Item key={menu.id}>
-                    <UserOutlined />
                     <span className="nav-text">{menu.name}</span>
                   </Menu.Item>
                 );
@@ -62,7 +59,32 @@ class Index extends Component {
           </Menu>
         </div>
         <div className={styles.right}>
-          <div className={styles.top}></div>
+          <div className={styles.top}>
+            <div></div>
+            <div>
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <span>修改密码</span>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <span>系统注册</span>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <span>退出系统</span>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomCenter"
+              >
+                <div>
+                  <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                  <span style={{marginLeft:5}}>超级管理员</span>
+                </div>
+              </Dropdown>
+            </div>
+          </div>
           <div className={styles.content}>{this.props.children}</div>
         </div>
       </div>

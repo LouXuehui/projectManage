@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import styles from './index.less';
-import { Input, DatePicker, Button, Select, Table } from 'antd';
+import { Input, DatePicker, Button, Select, Table, Tabs } from 'antd';
 import locale from 'antd/es/date-picker/locale/zh_CN';
+import { defaultColumns, tabList } from 'common/array.js';
 
 const { Option } = Select;
 const { Search } = Input;
 const { RangePicker } = DatePicker;
+const { TabPane } = Tabs;
 
 class Index extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class Index extends Component {
       endDate: '', //结束日期
       searchValue: '', //筛选值
       type: '', //筛选条件
+      activeKey: 'contract', //tab页
       dataSource: [
         { id: '1', approvalYear: '2020', name: '哈哈哈' },
         { id: '2', approvalYear: '2020', name: '哈哈哈' },
@@ -24,16 +27,23 @@ class Index extends Component {
         { id: '6', approvalYear: '2020', name: '哈哈哈' },
         { id: '7', approvalYear: '2020', name: '哈哈哈' },
         { id: '8', approvalYear: '2020', name: '哈哈哈' },
-        { id: '11', approvalYear: '2020', name: '哈哈哈' },
-        { id: '21', approvalYear: '2020', name: '哈哈哈' },
-        { id: '31', approvalYear: '2020', name: '哈哈哈' },
-        { id: '41', approvalYear: '2020', name: '哈哈哈' },
-        { id: '51', approvalYear: '2020', name: '哈哈哈' },
-        { id: '61', approvalYear: '2020', name: '哈哈哈' },
-        { id: '71', approvalYear: '2020', name: '哈哈哈' },
-        { id: '81', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '11', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '21', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '31', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '41', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '51', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '61', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '71', approvalYear: '2020', name: '哈哈哈' },
+        // { id: '81', approvalYear: '2020', name: '哈哈哈' },
       ],
+      projectHeight: '',
     };
+  }
+
+  componentDidMount() {
+    let projectDom = document.getElementById('project');
+    let projectHeight = projectDom ? projectDom.clientHeight : '';
+    this.setState({ projectHeight });
   }
 
   //刷新
@@ -49,74 +59,9 @@ class Index extends Component {
   }
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, projectHeight, activeKey } = this.state;
     const columns = [
-      {
-        key: 'id',
-        dataIndex: 'id',
-        title: 'ID',
-        width: '10%',
-      },
-      {
-        key: 'approvalYear',
-        dataIndex: 'approvalYear',
-        title: '立项年度',
-        width: '8%',
-      },
-      {
-        key: 'name',
-        dataIndex: 'name',
-        title: '项目名称',
-        width: '10%',
-      },
-      {
-        key: 'leader',
-        dataIndex: 'leader',
-        title: '项目负责人',
-        width: '9%',
-      },
-      {
-        key: 'assist',
-        dataIndex: 'assist',
-        title: '协助负责人',
-        width: '9%',
-      },
-      {
-        key: 'type',
-        dataIndex: 'type',
-        title: '项目类别',
-        width: '8%',
-      },
-      {
-        key: 'dept',
-        dataIndex: 'dept',
-        title: '申请部门',
-        width: '8%',
-      },
-      {
-        key: 'approvalDate',
-        dataIndex: 'approvalDate',
-        title: '立项时间',
-        width: '10%',
-      },
-      {
-        key: 'budgetAmount',
-        dataIndex: 'budgetAmount',
-        title: '预算金额',
-        width: '8%',
-      },
-      {
-        key: 'etc',
-        dataIndex: 'etc',
-        title: '预计完成时间',
-        width: '8%',
-      },
-      {
-        key: 'status',
-        dataIndex: 'status',
-        title: '状态',
-        width: '5%',
-      },
+      ...defaultColumns,
       {
         key: 'remarks',
         dataIndex: 'remarks',
@@ -124,6 +69,8 @@ class Index extends Component {
         width: '10%',
       },
     ];
+
+    console.log(activeKey, 'activeKey');
 
     return (
       <div className={styles.comprehensive}>
@@ -158,10 +105,35 @@ class Index extends Component {
             </Button>
           </div>
         </div>
-        <div className={styles.project}>
-          <Table columns={columns} dataSource={dataSource} scroll={{ x: 1300 }} />
+        <div id="project" className={styles.project}>
+          <div className={styles.projectContent}>
+            <Table
+              id={'111'}
+              columns={columns}
+              dataSource={dataSource}
+              scroll={{ y: projectHeight ? projectHeight / 2 - 43 : 0 }}
+              pagination={false}
+              scrollToFirstRowOnChange={true}
+            />
+          </div>
+          <div className={styles.projectDetail}>
+            <Tabs activeKey={activeKey} onChange={key => this.setState({ activeKey: key })}>
+              {tabList.map(tab => {
+                return (
+                  <TabPane tab={tab.name} key={tab.id}>
+                    <Table
+                      columns={tab.columns}
+                      dataSource={dataSource}
+                      scroll={{ y: projectHeight ? projectHeight / 2 - 120 : 0 }}
+                      pagination={false}
+                      scrollToFirstRowOnChange={true}
+                    />
+                  </TabPane>
+                );
+              })}
+            </Tabs>
+          </div>
         </div>
-        <div className={styles.projectDetail}></div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "cross-env PORT=8001 umi dev",
     "build": "umi build",
     "test": "umi test",
     "lint": "eslint {src,mock,tests}/**/*.{js,jsx} --fix",
@@ -14,7 +14,10 @@
   },
   "devDependencies": {
     "@ant-design/icons": "^4.0.6",
+    "axios": "^0.19.2",
     "babel-eslint": "^9.0.0",
+    "cross-env": "^7.0.2",
+    "dva": "^2.4.1",
     "eslint": "^5.4.0",
     "eslint-config-umi": "^1.4.0",
     "eslint-plugin-flowtype": "^2.50.0",
